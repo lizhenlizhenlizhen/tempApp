@@ -1,0 +1,182 @@
+Spring4：
+	javaBean(业务)
+		|
+	enterprise javaBean(复杂业务，EJB,这个技术被Spring替代)：写法难，原理难(ejb2.0)
+		ejb3.0很容易了，开发起来很容易
+		|
+	 Spring吧普通的javeBean变成EJB来处理业务	
+	 
+	 J2EE：
+		applet/jsp              js/html
+			|  
+			ejb					Spring
+			|
+		   jdbc					mybatis
+		   
+	Spring:
+		是一个轻量级的用于简化商业应用开发的容器框架，他的核心是控制反转（IOC）也叫DI依赖注入和AOP面向切面编程
+		
+		面向过程：
+		面向对象：封装  继承  多态
+		面向切面：AOP
+		面向服务：SOA
+		
+		Spring：是个容器，他是JavaBean的容器
+			DI：依赖注入（控制反转IOC）
+			AOP:切面编程
+			事务：声明式的事务
+		
+		创建spring项目后：
+			1.引入jar包
+			2.进行配置：
+				XML：
+				注解：
+	代码步骤：
+		* 调用客户端类DI（IOC）
+		 * 1.配置配置类，这个类用于代替XML
+		 * 2.配置你要托管的Bean，把这些Bean交给spring管理
+		 * 3.DI:
+		 * 		依赖注入（IOC）：在你需要的时候，吧实例给了你
+		 * 		好处：在于可以真正的做到面向接口编程，高内聚，低耦合（面向接口编程）
+		 * 4.@Config:配置标注
+		 * 	 @ComponentScan:配置要扫描的包
+		 * 	 @Component:配置要纳入到Spring容器管理的Bean类
+		 *   @AutoWired:配置自动注入依赖	
+		 *   @Qualifier:配置指定要装配的Bean的名称
+		 
+		 main（）{
+			1.基于工厂设计模式
+			2.获取Spring容器（ApplicationContext）：应用上下文
+			3.获取他监管的Bean实例 @Component  @Bean
+			4.自动组装@AutoWired
+		 }
+		 
+	AOP:面向切面编程
+		1）基于代理的设计模式
+		
+		
+	利用Springde AOP切面编程来是实现
+			AOP：切面  切点  通知
+			1）想使用AOP，就必须使用jar文件
+			2）配置AOP  用标注
+			利用标注技术构造功能型切面
+			Spring框架和Junit框架的整合  Spring框架和JDBC框架的整合 
+			
+			 * 1.自己写切面 可以为理解业务的代理类，内部是切点和通知构成的
+				 * @Aspect     
+				  @Component
+			 * 2.切点：主要有俩个属性
+			 * 	1）给切点起个名字：selfPoingCut()
+			 * 	2)给切点定义切入的路径或叫范围
+			 * 3.通知：
+			 *   通知的类型@Before  @After
+			 *   在某个切点上所要切入的功能
+
+	a.下载jar
+	b.配置jdbc   和APPconfig
+	c.Dao   @Repository
+	d.Service   @Service
+	Spring 和JDBC整合完毕
+	entity:
+		Account
+	Dao:
+		IAccountDao  save()
+		 @Repository
+		AccountDaoJdbcTempImpl { 
+			@Atutowired
+			JdbcTemplate jt;
+		save(){
+			jt.update("sql",new BeanPropertyRowMapper<Account>(Account.class))
+		}
+		}
+	Service:
+		IAccountService  save()
+		@Service
+		AccountServiceDaoImpl{ 
+		@Autowired
+	    private IAccountDao actDao;
+			save()
+		}
+Spring+SpringTemplate+Druid
+后台：
+	Spring：业务层
+	
+	SpringTemplate：数据层
+	SpringMVC：表现层
+	
+	Spring和SpringMVC整合：
+		1）下载jar包
+		2）配置
+
+项目流程及标准：
+Projects：
+	1.产品（软件）-解决用户的需求
+	2.了解用户需求（售前工程师）
+		客户：建立自己的人机关系
+		难：和机器打交道简单，人机关系
+			用户自己就不能说明自己的需求
+		--自己引导并挖掘用户的需求，你要告诉他做出来的东西的样子
+	3.竞品分析：（交互工程师）
+		--根据客户的需求，在网上查找同类产品，看各个产品定位，功能，UI。市场前景等做对比分析，以期望我们自己做出的产品是什么样子的。
+	4.原型：静态DEMO，就是软件静态的样子（HTML页面）
+		--axtrue(设计软件-生成HTML页面)，不能用的，只能给客户看
+		--交互理念：触摸
+		--会再次客户交流，直到和客户敲定结果
+		（原型分析法）
+	5.前端工程师-根据原型做出相应的静态Demo（HTML\Css\js\jquery\vue）
+	6.我们通过静态DEmo就可以分析（原型分析法）
+		--开发功能
+	7.开发后台功能：
+		--原型分析法：（画草图）
+		--用例分析法：分析
+		--画用户图：
+		  eg：博客系统
+			游客：浏览文章，发表留言，点赞，注册
+			
+			博主：登录，完善自己的个人中心，发表文章，设置热门标签，建立文章分类
+
+			后台管理员：查看所有博主信息，禁用博主，删除不合法的文章，帮博主找回密码，我能看到每个博主每个月所发的文章数量
+			
+	 在软件行业：UML建模
+		建模：画需求分析图，例如用例图
+		PowerDesigner:	Sybase(简单)
+		Rose：IBM
+		
+	1.大家就可以知道要完成哪些功能：用例分析法：
+		User Case Model:
+	2.建立概念模型：DCM  画E-R图
+		画E-R图（类图）：entity-relation(实体关系图)
+		--可以吧系统中所需要用到的实体和关系都分析出来
+		--把属性补全
+	3.建立类图
+	4.	建立数据库的表：PM
+		1.entity--table
+		2.建立主外键关系
+		3.建立弱关系
+	5.entity包：定义好规范
+		建立实体类：
+		2个实体类：
+			1.采用驼峰命名法
+			2.在实体类后面都必须加Bean，例如：xxxBean
+			3.每个实体类里都应有一个id属性，类型int/long 
+			4.每个实体必须实现Seri   有版本号
+			5.toString  equals  hascode
+	6.静态页面
+		WEB-INF:
+			assets:
+				js:
+				image:
+				css
+			jsp:
+				article:
+					add.jsp
+					delete.jsp
+					update.jsp
+					error.jsp
+					list.jsp
+				comment:
+					add.jsp
+					delete.jsp
+					update.jsp
+					error.jsp
+					list.jsp

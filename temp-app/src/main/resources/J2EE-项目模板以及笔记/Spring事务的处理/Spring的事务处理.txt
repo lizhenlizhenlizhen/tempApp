@@ -1,0 +1,9 @@
+1.Spring的事务处理
+	支持声明式的事务，不需要写代码就可以处理事务，配置
+	
+	具体操作：
+	1.引入Spring事务处理jar
+	2.配置TransactionManager事务管理器Bean
+	3.启动事务管理器@EnableTransactionManagement
+	如何编码：
+		@Transactional //-- 加事务处理标注表示该方法是告诉Spring框架需要事务处理的

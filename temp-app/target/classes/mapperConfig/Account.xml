@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.AccountMapper">
+
+	<!-- 以下方法将作为学习使用的通用的实现方法 -->
+	<!-- 新增一条记录 -->
+	<insert id="save" parameterType="AccountBean" keyProperty="id"
+		useGeneratedKeys="true">
+		insert into
+		t_account(act_no,password,enable,create_date,balance)
+		values
+		(#{actNo},#{password},#{enable},#{createDate},#{balance})
+	</insert>
+
+       <!--  删除某条记录 -->
+	<delete id="delete" parameterType="int">
+		delete from
+		t_account where id = #{id}
+	</delete>
+<!-- 
+	删除全部记录
+	<delete id="deleteAll">
+		delete from
+		t_account
+	</delete>
+
+	删除某些ID的记录
+	<delete id="deleteByIDS" parameterType="java.util.List">
+		delete from
+		t_account
+		where id in
+		<foreach collection="list" index="index" item="item" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	查询某条记录根据id
+	<select id="find" parameterType="int" resultType="AccountBean">
+		select * from
+		t_account where id = #{id}
+	</select>
+
+	<select id="findAll" resultType="AccountBean" parameterType="Map">
+		SELECT * FROM t_account
+		<include refid="paramsSQL" />
+	</select>
+
+	分页查询
+	<select id="findPaginated" resultType="AccountBean"
+		parameterType="Map">
+		select * from t_account
+		<include refid="paramsSQL" />
+		limit #{offset}, #{limit}
+	</select>
+
+	<select id="getTotalOfItems" parameterType="Map" resultType="int">
+		select count(*) from t_account
+		<include refid="paramsSQL" />
+	</select>
+
+
+	修改个某条信息
+	<update id="update" parameterType="AccountBean">
+		update t_account
+		<set>
+			<if test="username != null and username != ''">username = #{username},</if>
+			<if test="password != null and password != ''">password = #{password},</if>
+			<if test="updateTime != null">updateTime = #{updateTime},</if>
+		</set>
+		where id = #{id}
+	</update>
+
+
+	通用的设置条件的查询SQL语句
+	<sql id="paramsSQL">
+		<where>
+			<if test=" username != null and username != '' ">
+				and username like concat(concat('%', #{username,
+				jdbcType=VARCHAR}),'%')
+			</if>
+			<if test=" password != null and password != '' ">
+				and password like concat(concat('%', #{password,
+				jdbcType=VARCHAR}),'%')
+			</if>
+		</where>
+	</sql>
+	
+	根据用户名查找用户
+	<select id="findByUsername" parameterType="String" resultType="AccountBean">
+		select * 
+		from
+		t_account
+		where 
+		username=#{username}
+	</select> -->
+	
+</mapper> 

@@ -1,0 +1,192 @@
+一、开发环境
+1. IDE：
+	Eclipse(sun日食)-IBM/oracle
+	myeclipse2014  -插件（收费的）
+	
+2.eclipse(JEE)(PHP)(Phthon)(C++)	
+二、jdbc（Java DataBase Connectivity）
+   SUN：是J2EE中用于操作数据库的一套标准和规范。（一套接口）
+	（第三方类库）jar包狗：每天带着一堆jar跑来跑去
+三、maven建立项目：
+	maven：
+		1）是一个项目管理工具，管理jar包，打包，提供服务器插件，测试
+		2）是用户主目录下
+	maven项目的结构：
+		estore:
+		src
+			main
+				java:放你写的Java代码
+			test
+				java：放你写的test代码
+		pom.xml	：配置文件，用于配置项目的，它里边包含了你项目中用到的类库以及插件等等	
+	
+	java 代码可以解析xml文档 	
+	
+四、DB和JDBC
+	J2EE：
+	ebank：
+	三层：
+		表现层：JSP2.0（趋于淘汰的技术，逻辑代码和展现层的东西会交织在一起，维护起来不是特别方便）
+				Ajax
+				Html和CSS
+				接口
+				MVC设计模式（表现层的一种写代码的手法）
+		业务层：service包里写业务层的代码（service/biz）
+		持久层：DAO包里就是持久层的代码（dao/persist） Data Access object
+		设计DB库：
+		entity类：是贯穿于表现层、业务层和持久层的
+		util工具层：是贯穿于表现层、业务层和持久层的
+		DB是解决数据的存储问题
+			|
+			|	ORM（自己动手做对象关系映射Hibernate、MyBatis）
+			|
+		JDBC是Java语言用于访问数据库的标准规范
+	
+	1.电子银行项目和CMS项目系统--内容管理系统（PHPCMS）
+	2.Account类---账户
+		ID          	int
+		actNo			String
+		password		String
+		enable			boolean
+		createDate		Date
+		balance			double
+		
+	DLL文件：丢失了就是用C/C++语言写的函数的实现
+	
+			CPU的架构寻址方式有关x86(Intel)、AMD、arm、三星
+			
+	native int hasCode();		java不能实现-会调用本地库来实现hasCode码
+		
+		
+五、数据库耗时  （1.建立连接   2.提交事务）
+	1.数据库连接池：（线程池）
+		原理：连接池的原理就是提前建立N条数据的连接，方便客户端访问的需要
+		Java怎么做：（具体的代码实现）
+			a.定标准（接口）--DataSource：数据源就是Java定义的数据库连接池的标准规范
+			b.c3p0连接池：HIbernate的底层就是基于c3p0的实现
+				Druid连接池：阿里
+		编码人员：
+			1）下载jar包（c3p0.jar druid.jar）     mysql.jar
+			2）配置数据源                          jdbc.properties(驱动类，用户名，密码)
+			3)编写代码，（写工具类）
+	2.实现
+		1）pom.xml:配置jar，自己下
+		2）配置c3p0数据源：xml
+	3.j2ee 
+		service dao entity sql util
+	4.
+		前端技术（HTML CSS JS jQuery）
+			|
+			| servlet(MVC设计)
+			|
+		后台技术（javebean+jdbc+druid+mysql）
+			|
+			|(提供数据，数据的来源，数据分析和计算)
+			|
+		后台的后台：数据处理技术	
+	
+		View(V):显示
+		
+		Controller(C ):控制层
+		
+		model(M):数据
+	5.servlet:
+		原理：tomcat:servlet的容器，servlet是有生命周期的
+		
+			我们开发一个web应用，其实就是在写很多的servlet小豆子，每个小豆子都提供一个功能，
+			然后这些小豆子的生命周期贵Tomcat管理，比如，什么时候创建，什么时候销毁，什么时候调用
+		步骤：
+			1）写一个servlet
+			2)配置servlet（告诉Tomcat你写的这个servlet）
+			3)tomcat就会把这个servlet管理起来，你就不用管了
+			4）客户端的人就可以访问这个servlet
+		具体的操作
+			1.要准备好Tomcat
+			2.要建一个web项目
+			3.。。
+			4.导出web项目（war包）
+			5.把他扔到webapps下
+			
+		1）Servlet是多线程的，可以实现并发的
+		2）servlet是一种资源（a.HelloServlet字符串,b.LoginServlet  Html页面）
+		3）Tomcat是servlet的容器	
+			Servlet(后台技术)-----------Applet(前端技术)，比JS要好很多
+		4)注意Servlet中尽量少出现成员变量	
+		
+	servlet:jsp 是servlet的另外一种表现形式，其实他就是一个Servlet，
+			只不过正常的Servlet是在代码中嵌入静态页面部分，而JSP是在页面中嵌入代码
+			
+	6.用maven建立web项目
+		servlet2和servlet3的区别：
+		他们最大的区别在于对servlet的配置，xml文件做配置
+		XML: 他的浸入性小，好维护更新
+		注解：简单，但是有小量的侵入性，但是现在看来，注解做配置在取代XML
+	7.maven web	
+		a.new maven项目记住勾选simple
+		b.要把打包方式改为war
+		c.配置pom.xml	
+			1)配置忽略web.xml配置文件，因为servlet3.0的标注不需要xml配置，可以使用标注进行配置
+			2）由于JDK本身没有提供Servlet接口，所以需要配置依赖
+			3）如果你开发项目中需要用到JSP，那最好配置加上JSP标签库的依赖
+			4）配置web容器的插件（Tomcat   jetty    jboss   weblogic    websphere）
+				配置tomcat7
+			5）clean install验证和下载项目中所需要的依赖，知道build success
+				如果build failure，就是相应依赖jar没有下载好或者下载不完整，删除旧的重新下载
+				tomcat7:run  运行Tomcat
+			6）至少要配置俩个插件：1.Tomcat插件  2.编译插件
+			7）结论：web容器中的servlet会在用户第一次访问的时候init，而且会调用init()一次
+					 * 而service你每发一个请求他执行一次,服务器重启的时候或关闭的时候回调用{或代码被修改的时候}destroy（）
+					 * loadOnStartup:就是在web容器启动的时候就init（）
+	8.理论上可以开发任何应用
+		HTML/css/js/jsp+servlet3.0 +javabean+jdbc +mysql库
+			|
+			|
+		代码量大，但是效率高效，清晰，自己清晰明白
+		代码量少，效率低（运行）开发效率提升，但是对底层了解的少了
+		html  +         SpringMVC  +Spring+MyBatis/JDBC +mysql库
+		
+	9.servlet技术
+		a.Servlet :
+			ServletContext:
+				一个应用一个Servlet上下文对象，全线程共享的东西就放到这里
+				ctxt/setAttribute(key,value)
+			Session	:
+				Cookie:
+				一次会话创建一次，一个用户共享信息就放在里边	
+				session.setAttribute(key,value);
+				session.remove("key");
+			Request :
+				一次请求创建一次
+				request.setAttribute(key,value);
+		b.Filter过滤器
+		c.Listener监听器	
+	   什么是会话？什么是请求？
+	  场景：
+		我开发了J2EE应用，
+			Session：
+				生命周期就是从打开浏览器访问某个web应用开始，到浏览器关闭就是一次会话。
+				会话是有失效的时间，这个是由web容器决定的，Tomcat容器默认对session的失效时间是30分钟
+				Cookie实现：客户端一种存储技术，可以存储键值对（key，value）
+				（“sessionID”,16489748474）
+			Session是Java后台技术，而Cookie是浏览器存储技术，session是基于cookie实现的	
+			request：在一次会话可以发送N个请求，每次都是一个新请求
+			
+		a.Servletcontext对象是什么时候被实例化的？
+		b.Servlet3有几种监听器
+			SessionListener
+				session本身的监听器
+				Attribute监听
+			servletContextListener
+			ServletListener
+		c.什么是事件监听模式？  ---基于观察者设计模式的	
+			事件源  事件  监听器
+		@WebListener:不用配置路劲
+		d.过滤器
+			1.写过滤器implements Filter接口
+			2.配置@WebFilter(RUL)
+			
+			Filter是怎么实现的：是基于代理设计模式做出来的，（）
+			原理：a.在调用Servlet的Service方法之前和之后做的一些事情
+				  b.配置在哪个Servlet上执行	
+			
+	Spring  :(Servlet  filter  listener  反射  标注  XML)		

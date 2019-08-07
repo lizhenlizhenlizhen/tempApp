@@ -1,0 +1,19 @@
+1.前后端分离开发？
+	前端：
+		技术：HTML5/css3/JS/
+		框架：BootStrap
+		框架：JQuery.js/VUE.js
+	角色扮演：
+		前端开发人员
+			ebook:apache:apache服务区：
+				index.html
+		后端人员写接口：
+			URL(result):http://192.168.4.115:8080/uek/test
+			JSON(字符串)：{}
+			JSON和对象互相转化的工具类：
+				alibaba:maven fastjson
+				JSONObject.toJSONString(object);
+	
+
+
+

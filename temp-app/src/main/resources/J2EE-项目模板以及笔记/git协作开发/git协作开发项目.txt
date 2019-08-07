@@ -1,0 +1,44 @@
+1.如何利用Git协作开发项目？
+	a.了解Git[Linux]/SVN：控制纯文本文件的版本
+		（1）你写的代码实际上是开源的
+		（2）代码的托管平台：
+			GitHub/GitLab/Bitbucket/Coding/CSDN.code
+	b.开发任何项目
+		（1）新建一个maven项目
+			ebank-app
+				.setting
+				target/
+				.project
+				src:所有的项目文件
+				pom.xml:项目的配置文件
+		（2）在项目根目录下建立以下文件（都是纯文本文件）
+			.gitignore:设置忽略提交到Git库中的文件和文件夹
+			README.md：用于描述你写的项目
+			LICENSE ：你写的项目采用的协议
+	
+		（3）让Git这个工具只帮助我们管理源代码
+			src  pom.xml  README.md  .gitignore LICENSE
+			总结：项目已经搭建完毕
+		（4）把ebank-app这个项目纳入到Git中管理，因为Git可以做版本控制
+			a.下载安装Git
+			b.cd到项目根目录下：/d/workspace/ebank-app
+			c.git init:
+				把当前项目纳入到Git管理中，他会在当前项目目录下新建一个.git文件夹
+				其实，这个时候.git中是空仓库，里面没有东西
+			d.git add .：
+				吧需要Git管理的源代码放入到.git这个仓库中
+				这个操作只是把源代码放入到缓冲区，并没有真正保存到Git仓库。
+			e.git commit -m "" :把缓冲区的代码提交单仓库永久的管理起来
+			g.把Git管理的项目ebank-app放到一个公网的Git代码管理平台
+				git remote add origin htttp//lizhen
+				got push -u origin master    推送到远程仓库（master为默认分支）
+
+
+2.克隆一个
+然后打开Git Bash并切换到CoolWeather的工程目录下，输入下面的命令将远程版本库克隆到本地。
+
+git clone https://github.com/jshguoxin/coolweather.git
+			
+			
+			
+			

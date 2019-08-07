@@ -1,0 +1,209 @@
+1.
+	a.总结面试题
+	b.考核
+	c.项目
+	d.微服务架构	spring Boot 1.x/2.x
+		大型应用是有用的，
+		分布式集群
+		好维护
+		J2EE：架构思想来做软件
+		  分层分模块思路,MVC设计模式是view层的设计模式（SpringMVC）
+			view:
+			service:	
+			dao:
+	e.SpringMVC的理解
+	g.微服务的分布式集群
+		a.一个功能作为一个服务的话
+		b.一个服务就可以搭载集群
+		c.spring Cloud / dubbo(阿里)-RMI  （当当网 - Dubbox） 最后又(阿里自己接管)
+
+2.spring Boot：1.x/2.x
+	简化J2EE的开发，对于不知道jsp Servlet3.0 SpringMVC Spring Mybatis
+		J2EE:
+		1.配置SpringMVC：JSP/controller
+		2.配置数据源：
+		3.配置Spring容器
+		4.配置MyBatis
+		5.配置Tomcat
+		.....
+			缺点：配置很多，显得项目比较臃肿，配置非常多
+			优点：很清晰你自己的配置，想改比较容易
+	SpringBoot：
+		1.简化配置，规约大于配置
+		2.所有配置都帮你做好，你不用管
+		缺点：底层隐藏的很深，越开发你会发现什么也得配置
+		优点：可以实现微服务，因为他可以打成jar
+		
+如何搭建一个Springboot项目？
+			（1）maven项目
+				http://start.spring.io
+			（2）src/main/java:源代码
+					默认包com.uek.project.ebook-app
+						放置我们所写的代码
+							EbookBootApplication.java:
+								他是项目的入口文件，每个SpringBoot项目都会有一个项目启动的入口文件
+				src/main/resources:
+					static:
+						类似于assets文件夹，里面静态资源
+						例如：css image js plugin
+					templates:
+						类似于webapp/Web-INF/jsp文件夹，里面放置
+						例如：默认就是HTML页面，默认情况下SpringBoot不支持JSP
+						默认支持*.html页面（但是他不是静态页面）
+						它使用了模板引擎thymeleaf，看上去很像静态页面
+						其实不然。这个模板引擎也支持类似于JSP的标签
+						而且很简单，更适合做前后端分离
+					application.properties:
+						项目的配置文件，只不过他没有使用XML，而是使用了
+						properties文件的方式
+				src/test/java：
+					单元测试代码
+启动SpringBoot项目的方法：
+			(1)右击 -》run as 
+						spring-boot:run
+			(2)直接执行EbookApplication.java    run as 启动
+			(3)排除数据源配置启动成功
+编写基于SpringBoot：
+			hello world
+			了解返回字符串和页面的方法
+			SpringMVC的写法一致
+如何更换自己喜欢的banner：
+				a.在src/main/resources目录下新建banner.txt
+				b.制作自己喜欢的Banner
+					http://patorjk.com/software/taag
+				c.写入自己喜欢的文字写到banner.txt
+				d.启动项目
+
+			
+	很简单，那你没用过，Servlet,SpringMVC,Spring,JDBC,Mybatis
+		a.配置config/WebConfig.java  JDBCConfig.java   AppConfig.java
+			application.properties
+		b.打包的方式war/jar(为做微服务做准备)
+		c.jar里面会默认包含Tomcat容器
+		d.他的静态资源或者页面放置位置和我们的web应用不一样
+			estore:
+				classes:
+					controller,dao,service,util
+				Web-App:
+					Web-INF:页面
+					assets:静态资源
+			
+			estore(spring Boot):
+				classes:
+				Static:
+					assets:
+					jsp:
+3.面试题	
+
+4.MyBatis： 
+	ORM框架，简化了JDBC的操作，JDBCTemplate
+	MyBatis：方便数据库管理员调优  
+	Hibernate(HQL,一是效率问题、二是封装性太高，三是不好做数据库优化)
+MongoDB（轻量级的，文件服务器）  | ElaticSearch（更适合搜索） | Hadoop(重量级的，功能最全)分布式数据库，它不是面向关系的，面向对象（json）
+	$.ajax({
+		name:'zhangsan',
+		age  :18,
+		url:'www.baidu.com',
+		success:function(){
+		
+		},
+		failure:function(){
+		},
+		onClick:function(){
+		}
+	});
+5.如何整合MyBatis框架
+	a.Spring是个大工厂（工厂模式），
+		生产JavaBean，他管理JavaBean的生命周期。
+		默认是单例模式（singleton），原型模式（prototype）  @Scope（“singleton”）
+	b.把MyBatis框架所需要的JavaBean纳入到Spring5容器中去管理
+		MyBatis框架需要什么样的Bean？
+		a.基于JDBC，所以他依然需要配置DataSource这个Bean
+		b.SQLSessionFactory Bean:依赖于DataSource
+			SQLSessionFactory Bean和我们的JDBCTemplate Bean的作用是类似的
+		c.引入相应的jar文件
+			pom.xml中引入配置所需要的jar
+			a.Mybatis3.jar
+			b.Spring-Mybatis.jar
+6.具体操作步骤
+	a.pom.xml中引入jar文件
+		1）mybatis3.jar
+		2)spring-mybatis.jar
+	b.配置mybatis框架需要的Bean（交给spring容器来管理）
+		核心Bean：
+			1）DataSource Bean:连接数据库（连接池）
+			2）SQLSessionFactory Bean：
+				MyBatis操作管理数据库操作的Bean，
+				此Bean主要是对JDBC的操作更进一步的操作，更加简单
+		@Configuration
+		class MyBatisConfig{
+			@Bean
+			//@Scope("")
+			public DataSource ds(){
+				return new DataSource();
+				
+			}
+			
+			@Bean 
+			public SqlSessionFactory sqlSessionFactory(){
+				//--1.不是直接创造SQLSessionFactory对象，而是通过
+				SQLSessionFactoryBean这个代理类来创造sqlSessionFactory对象
+				//--2.要给SQLSessionFactory设置一些属性才能构造该对象
+				      当然，也不是直接给SQLSessionFactory设置属性，也是通过给
+					  代理对象SQLSessionFactoryBean设置属性来实现的
+					  这里有几个关键的属性要设置：
+						a.datasource
+						sqlSessionFactoryBean.setDatasource(ds);
+						b.mapperLocations(设置映射文件的位置)
+						c.configLocation(设置MyBatis配置文件的位置)
+				//--3.返回SQLSessionFactory对象
+						return sqlSessionFactoryBean.getObject();
+			}
+		}	
+		
+		注意：给SQLSessionFactory设置的属性值为了方便以后改动
+				所以利用Spring框架的属性值加载技术
+				@PropertySource设置属性文件的加载位置，然后找到
+				相应的*.properties属性文件进行属性读取
+				读取到的属性值通过@Value标注进行获取
+				因此，我们建立了mybatis.properties属性配置文件
+				里面有3个属性，1：configPath  2：mapperPath  3:aliasPath
+	c.建立相应位置的配置文件
+		1）在类加载路劲下（src/main/resources）建立mybatis-config.xml
+		2)在类加载路劲下（src/main/resources）建立mapperConfig文件夹
+			在该文件夹下建立相应的映射文件*.xml(User.xml)
+	d.到目前为止，我们完成了MyBatis3和Spring5的整合
+7.如何利用MyBatis编写Dao代码？
+	a.entity:
+		User类---User表
+	b.dao:
+		prototype:dao接口
+		impl:dao实现
+	  mapper(用mybatis)：
+		UserMapper
+	c.为了解决冲突问题：
+		dao:此包底下的类会被Spring容器创建实例
+		mapperScan:该标注也会扫描某包底下的类，进行实例化
+		故而会产生冲突，为了解决该冲突，我们可以把需要的mybatis框架
+		实现的DAO，放到mapper包底下，然后该报下的DAO都以xxxMapper结尾
+		
+		编写代码的步骤如下：
+			1）建立mapper.XXXMapper接口，该接口实际上就是DAO接口
+				自己写接口方法即可，例如：
+				interface AccountMapper(){
+					void save(Account account)
+				}
+			2)编写实现：
+				a.在src/main/resources/mapperConfig目录下
+				  新建对应的映射文件（可以建立子文件夹）
+				  例如：如果是AccountMapper接口就建立Account.xml映射文件，
+				b.编写该映射文件
+				  namespace:它的值要写你想要实现接口的全类名
+					例如：mapper.AccountMapper
+					method:编写对应的方法，也就是你的AccountMapper接口中有什么方法，这里
+						就要配置什么样的接口方法实现。
+					mybatis有自己独特的标签来标识方法的实现，但实体内其实还是基本的SQL语句	
+	
+	
+	
+	

@@ -1,0 +1,24 @@
+1.分页的技巧
+	MyBatis分页：
+		举例：
+			场景
+			（1）用户表t_user   10000条数据
+			（2）页值：page     页面大小：pageSize
+			（3）List<User> find(int page,int pageSize)
+		做法：
+			(1)limit  偏移量	页面大小
+				select * from t_user limit 0,3
+			(2)根据数据总量和页大小计算总页数
+				total:10000	         13	
+				pageSize:100         3
+				totalPages=(total+pageSize-1)/pageSize
+				select count(*) from t_user
+			(3)根据页数计算偏移量
+				offset=(page-1)pageSize
+2.线程池的概念
+	ThreadLocale   代理模式
+	MyBatis PageHelper:
+	a.在pom.xml中引入maven PageHelper  
+	b.在MyBatis-Config.xml位置文件中配置pageHelper拦截器
+	c.编码
+	

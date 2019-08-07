@@ -1,0 +1,160 @@
+day01   DB
+
+1.Web项目：J2EE项目（Java企业级项目）
+	基于B/S架构的项目，都叫做web项目（网站、小程序、APP、移动收费系统、网上银行）
+	（不只是Java可以做，其他例如PHP、Python、JS（node.js）、ASP.net（C#））
+	a.服务器（软件）
+		1.（tomcat）:Web项目的容器（servlet容器）
+		2.Jetty
+		3.Weblogic
+		4.Jboss
+	b.apache服务器（PHP、python、node.js等）
+		IIS
+2.Web项目的架构：一个文件夹（ebank,estore,eschool）
+	web项目是资源的集合：静态资源和动态资源
+	从物理结构上来说：
+		estore:
+		CSS   :样式资源（CSS、rem ）*.css
+		JS    ：做动态效果的JS库（JQuery.js,Vue.js,Tree.js   *.js）
+		image : 图片（*img *png *.gif...）
+		WEB-INF:外界是没有权利拿到这个文件夹里面的东西的（安全）
+		classes:所有编译好的Java文件都要放到这个文件夹下
+		*.jsp
+		*.html
+		
+	逻辑技术架构：
+	J2EE:由Sun公司（oracle公司收购）提出的，用于简化商业应用开发的技术标准
+		基于J2EE（技术架构）的estore系统的设计与实现
+		分层架构：
+			表现层：
+				jsp/servlet
+				HTML5/CSS/JS (JQuery.js,Vue.js,Ext.js,Node.js...)
+				Swing
+			业务层：
+				JaveBean:
+				EJB     :中间件技术  Spring(商业逻辑)  SpringMVC  
+			
+			持久层：
+				DAO:数据访问接口（数据访问对象）
+				JDBC：
+					用于简化JDBC的开发过程，一定会损失效率
+					ORM：对象-关系映射框架  Object Relational Mapping
+					Hibernate：
+					MyBatis:
+			
+			数据层:（DBA） Database Administrator
+				MySQL:关系型数据库
+				MongoDB：非关系型数据库（not-only） 面向对象的数据库
+				Hadoop:分布式的存储  -  免费开源
+	jsp/servlet+javabean+spring+mybits+mysql/hadoop
+	
+3.数据库：
+		关系型数据库（一对一，一对多，多对多）：MySQL   Oracle（Oracle）   db2（IBM（国际商业机器公司））   sqlserver(微软)    SQLite(Android)
+		
+		操作数据库：SQL语言
+		关系：
+		表：table
+		行：
+		列：（字段）
+		
+		表与表之间的关系：
+		行：（记录）
+		字段（列）：
+		面向对象（Java）    代沟（ORM）     面向关系（MySQL）
+		  类                  类对表             表
+		  对象                  				 行
+		  属性                   				 字段
+		
+	MySQL：安装	   不是应用软件，这是系统软件
+	
+	注意：
+		1.改字符集:utf-8
+		2.改并发连接数：200
+		3.会在后台注册服务：服务名称
+		4.设置root用户的密码
+		5.允许root用户远程连接
+		6.吧MySQL的命令添加到path环境变量中
+		7.端口号默认：3306
+4.访问数据库：
+	（1）.CMD：MySQL本身给我们提供一个shell接口
+	（2）.图形化工具	（用于给服务器发送SQL语句的工具）
+5.MySQL数据库本身是一个软件：
+	IO写到硬盘，二进制数据
+6.sql语句分类
+	1.DDL数据定义语言   如：建库，建表                   definition          create/alter/drop
+	2.DML数据操作语言   如：对表中的记录操作增删改       manipulation        insert/updata/delete
+	3.DQL数据查询语言   如：对表中的查询操作             query               select/show
+	4.DCL数据控制语言   如：对用户权限的设置	         control             grant/revoke  允许/撤回
+	alter database ku default character set utf-8;
+	drop database ku;
+	select database();查询正在使用的库
+	create date test2 like user;创建和表结构一样
+	alter table user add pass varchar(100);
+	alter table user modify 列 类型
+	alter table user change 旧列名 新列名 类型
+	alter table 表名 drop 列名
+	rename table 表名 to 新表名
+	alter table 表名 add primary key(id);
+	alter teable 表名 drop primary key;
+	alter table employee add constraint f_dep_id foreign key (dep_id) references department (id);给一个已经存在的表加外键约束
+	alter table employee drop foreign key f_dep_id;删除外键
+	alter table employee add constraint f_dep_id foreign key (dep_id) references department (id) on update cascade on delete cascade;级联更新或删除
+	show create table 表；查看表如何创建的
+	DML:
+	insert into stu2 select * from stu;   结构需一样
+	insert into stu2 (name,age) select name,age from stu;
+	updata user set age=2
+	updata user set age=2,sex='男' where id=3;
+	select if(null,5) from user;如果为null5代替
+
+
+7.任何系统项目：
+	权限模块：RBAC设计原则（基于角色的授权模式Role-Based policies Access Control）
+	什么叫权限？俩个问题
+		1.认证   ----who（用户名和密码，基于证书。。。）
+		2.授权	 ----what（可以干什么？做什么？）
+	WEB系统：resources集合
+		URI/URL：统一资源标识符/统一资源定位
+		   互联网的资源（URI的格式）：
+			  协议头：//主机的IP地址：端口号  /资源路径;
+	
+8.数据库规范模式：
+		一范式：列不可拆分，称为原子性
+		二范式：在一范式的前提下，表中的每一个字段都完全依赖于主键
+		三范式：不能传递依赖
+		
+9.事务
+
+	1.开启事务  start transaction;
+	2.写SQL
+	3.回滚或提交   	rollback或commint
+	select @@autocommit;自动提交事务属性
+	set @@autocommit;
+	
+	savepoint 名字
+	rollback to 名字指定到某一个回滚点
+	
+	set global transaction isolation level read uncommitted;  设置隔离级别默认第三级
+10.创建用户
+	CREATE USER '用户名'@'主机名' IDENTIFIED BY '密码';   创建用户
+	
+	1. 给 user1 用户分配对 test 这个数据库操作的权限：创建表，修改表，插入记录，更新记录，查询
+		grant create,alter,insert,update,select on test.* to 'user1'@'localhost'; 注：用户名和主机名要与上面创建的相同，要加单引号。
+	2. 给 user2 用户分配所有权限，对所有数据库的所有表
+		grant all on *.* to 'user2'@'%';
+	撤销 user1 用户对 test 数据库所有表的操作的权限
+	revoke all on test.* from 'user1'@'localhost';
+	查看权限
+	SHOW GRANTS FOR '用户名'@'主机名';
+	删除用户
+	DROP USER '用户名'@'主机名';
+	修改管理员密码
+	mysqladmin -uroot -p password 新密码
+	修改普通用户密码
+	set password for '用户名'@'主机名' = password('新密码');
+	
+ 备份：
+mysqldump -uroot -proot test1 > d:b.sql   备份到D盘
+
+	
+	
